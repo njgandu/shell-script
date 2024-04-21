@@ -30,17 +30,17 @@ if [ $USERID -ne 0 ]
     echo "you are a superuser..continue"
 fi   
 
-dnf install mysql &>> LOGFILE
+dnf install mysql-server -y &>>$LOGFILE
 validate $? "installing mysql"
 
 systemctl enable mysqld &>>$LOGFILE
-VALIDATE $? "Enabling MySQL Server"
+validate $? "Enabling MySQL Server"
 
 systemctl start mysqld &>>$LOGFILE
-VALIDATE $? "Starting MySQL Server"
+validate $? "Starting MySQL Server"
 
 mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
-VALIDATE $? "Setting up root password"
+validate $? "Setting up root password"
 
 mysql -h 172.31.81.38 -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
