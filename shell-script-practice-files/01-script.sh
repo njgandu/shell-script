@@ -13,8 +13,8 @@ N="\e[0m"
 echo "please enter DB password"
 read -s mysql_root_password
 
-validate{
-    if ($1 -ne 0)
+validate(){
+    if [ $1 -ne 0 ]
      then
         echo "$2....faulure"
      else
@@ -22,7 +22,7 @@ validate{
     fi     
 }
 
-if ($USERID -ne 0)
+if [ $USERID -ne 0 ]
  then
    echo "please execute this root user"
    exit1
