@@ -11,7 +11,7 @@ Y="\e[33m"
 N="\e[0m"
 
 echo "please enter DB password"
-read -s mysql-root-password
+read -s mysql_root_password
 
 validate{
     if ($1 -ne 0)
@@ -39,10 +39,10 @@ VALIDATE $? "Enabling MySQL Server"
 systemctl start mysqld &>>$LOGFILE
 VALIDATE $? "Starting MySQL Server"
 
-mysql_secure_installation --set-root-pass ${mysql-root-password} &>>$LOGFILE
+mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
 VALIDATE $? "Setting up root password"
 
-mysql -h 172.31.81.38 -uroot -p${mysql-root-password} -e 'show databases;' &>>$LOGFILE
+mysql -h 172.31.81.38 -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
 then
     mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
